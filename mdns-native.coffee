@@ -1,13 +1,12 @@
-
 os = require 'os'
 childProcess = require 'child_process'
 
 
 module.exports =
-	initialize: (port)->
+	publish: (type, domain, port)->
 		name = os.hostname().replace /\.local\.?$/, ''
-		type = '_coqs-gameserver'
-		domain = 'local'
+		# type = '_coqs-gameserver'
+		# domain = 'local'
 
 		# possible values for process.platform
 		# linux
@@ -16,9 +15,15 @@ module.exports =
 		# darwin (osx)
 
 		# dns-sd support can be added to windows using apple's sdk: https://developer.apple.com/bonjour/
-
-		child = switch process.platform
-			when "darwin" then childProcess.spawn 'dns-sd', ['-R', name, type, domain, port]
-			when "linux" then childProcess.spawn 'avahi-publish-service', [name, "#{type}._tcp", port]
-			else
-				console.warn 'Unsupported platform:',process.platform
+		try
+			child = switch process.platform
+				when "darwin" 
+					childProcess.spawn 'dns-sd', ['-R', name, type, domain, port]
+				when "win32","win64" 
+					childProcess.spawn 'dns-sd', ['-R', name, type, domain, port]
+				when "linux" 
+					childProcess.spawn 'avahi-publish-service', [name, "#{type}._tcp", port]
+				else
+					console.warn "Plateform not supported"
+		catch
+			print "Veuillez installer mDNS"

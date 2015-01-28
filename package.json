@@ -1,0 +1,32 @@
+{
+  "name": "mdns-native",
+  "version": "0.1.0",
+  "description": "A node MDNS module that uses system installed programs to publish services.",
+  "main": "mdns-native.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coqsenpate/node-mdns-native.git"
+  },
+  "keywords": [
+    "publish"
+  ],
+  "author": "Coqs en Pate <coqs@coqsenpate.com> (http://www.coqsenpate.com/)",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/coqsenpate/node-mdns-native/LICENSE-MIT"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/coqsenpate/node-mdns-native/issues"
+  },
+  "dependencies":{
+
+    },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  },
+  "homepage": "https://github.com/coqsenpate/node-mdns-native",
+  "license": "MIT"
+}
