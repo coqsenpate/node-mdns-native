@@ -12,15 +12,12 @@ A node MDNS module that uses system installed programs to publish services.
 ## Usage
 
 ```js
-  var scapegoat = require('scapegoat')
-      escape = scapegoat.escape,
-      unescape = scapegoat.unescape;
+  var mdns = require('mdns-native')
+      publish = mdns.publish;
 
-  var html = '<h1>Hello World</h1>',
-      escaped = escape(html),
-      unescaped = unescape(escaped);
 
-  console.log('html', html, 'escaped', escaped, 'unescaped', unescaped);
+<!--- publish(type, domain, port) -->
+	publish('_coqs-server', 'local', '9000');
 ```
 
 ## Tests

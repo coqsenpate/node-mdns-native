@@ -1,8 +1,20 @@
 os = require 'os'
-childProcess = require 'child_process'
+# childProcess = require 'child_process'
 
 
 module.exports =
+	test: (testOS)->
+		try
+			child = switch testOS
+				when "linux" 
+					console.log "je suis sous linux"
+				when "darwin" 
+					childProcess.spawn 'dns-sd', ['-R', name, type, domain, port]
+				else
+					console.warn "Platform not supported"
+		catch
+			console.error "Veuillez installer mDNS"
+
 	publish: (type, domain, port)->
 		name = os.hostname().replace /\.local\.?$/, ''
 		# type = '_coqs-gameserver'
@@ -24,6 +36,6 @@ module.exports =
 				when "linux" 
 					childProcess.spawn 'avahi-publish-service', [name, "#{type}._tcp", port]
 				else
-					console.warn "Plateform not supported"
+					console.warn "Platform not supported"
 		catch
-			print "Veuillez installer mDNS"
+			console.error "Veuillez installer mDNS"
