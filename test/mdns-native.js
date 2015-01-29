@@ -1,30 +1,21 @@
 var expect = require('chai').expect,
-    mdns = require('../mdns-native'),
-    publish = mdns.publish;
+		mdns = require('../mdns-native'),
+		publish = mdns.publish;
 
-var test = function() {
-      process.platform = 'linux';
-      publish("_coqs-gameserver2000", "local", 9900);
-  }
-var test2 = function() {
-      process.platform = 'win32';
-      publish("_coqs-gameserver2000", "local", 9900);
-  }
-var test3 = function() {
-      process.platform = 'sunos';
-      publish("_coqs-gameserver2000", "local", 9900);
-  }
+var test = function(platformOverride, callback)
+{
+	process.platform = platformOverride;
+	publish("_dummyService", "local", 9900, callback);
+}
 
-describe('#test', function() {
-  it('test linux (no error)', function() {
-    expect(test).to.not.throw(Error);
-  });
-
-  it('test windows/macOS (error with childProcess.spawn)', function() {
-    expect(test2).to.throw('Please refer to the readme file.');
-  });
-
-  it('test sunOS (plateform inconnue)', function() {
-    expect(test3).to.throw('Platform not supported: ');
-  });
+describe('MDNS module', function() {
+	it('works as expected.', function(done) {
+		test('linux', function(err, childProcess) {
+			if (err) throw new Error(err);
+			if (childProcess)
+				console.log('Found child process:',childProcess.pid);
+			done();
+			childProcess.kill();
+		});
+	});
 });
