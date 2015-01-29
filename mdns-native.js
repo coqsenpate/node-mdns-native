@@ -2,14 +2,13 @@
 var os = require('os');
 var childProcess = require ('child_process');
 
-function execute(command, args)
+function executeIt(command, args)
 {
-  try {
-        return childProcess.spawn(command, args);
-  }
-  catch(error){
-      throw "Please refer to the readme file.";
-  }
+      var kid = childProcess.spawn(command, args);
+      kid.on('error', function(err) {
+          throw new Error('Please refer to the readme file.');
+       });
+      return kid;
 }
 
 
@@ -23,15 +22,17 @@ function execute(command, args)
             case "darwin":
             case "win32":
             case "win64":
-              return execute('dns-sd', ['-R', name, type, domain, port]);
+              return executeIt('dns-sd', ['-R', name, type, domain, port]);
             case "linux":
-              return execute('avahi-publish-service', [name, "" + type + "._tcp", port]);
+              return executeIt('avahi-publish-service', [name, "" + type + "._tcp", port]);
             default:
-              throw "Platform not supported.";
+              // throw new Error('Platform not supported: ' + process.platform + '.');
+              throw new Error('Platform not supported: ');
           }
         })();
       } catch (_error) {
-          console.error (_error);
+          // console.error (_error);
+          throw _error;
       }
     }
   };
