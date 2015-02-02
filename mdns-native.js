@@ -2,21 +2,19 @@
 var os = require('os');
 var childProcess = require ('child_process');
 
-function executeIt(command, args, callback) {
-
+function execute(command, args, errorCallback) {
 	var child = childProcess.spawn(command, args);
-
 	child.on('error', function(err){
-		callback('Please refer to the readme file.');
+		errorCallback('Please refer to the readme file.');
 	});
 
-	callback(null,child);
+	return child;
 }
 
 module.exports = {
-	publish: function(type, domain, port, callback){
-		if(!callback)
-			callback = function(){};
+	publish: function(type, domain, port, errorCallback){
+		if(!errorCallback)
+			errorCallback = function(){};
 
 		var name = os.hostname().replace(/\.local\.?$/, '');
 
@@ -24,14 +22,11 @@ module.exports = {
 			case "darwin":
 			case "win32":
 			case "win64":
-				executeIt('dns-sd', ['-R', name, type, domain, port], callback);
-				break;
+				return execute('dns-sd', ['-R', name, type, domain, port], errorCallback);
 			case "linux":
-				executeIt('avahi-publish-service', [name, type + "._tcp", port], callback);
-				break;
+				return execute('avahi-publish-service', [name, type + "._tcp", port], errorCallback);
 			default:
-				callback('Platform not supported: '+process.platform);
-				break;
+				errorCallback('Platform not supported: '+process.platform);
 		}
 	}
 };
