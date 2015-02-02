@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "A node MDNS module that uses system installed programs to publish services.",
   "main": "mdns-native.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/coqsenpate/node-mdns-native.git"
