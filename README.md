@@ -28,5 +28,6 @@ A node MDNS module that uses system installed programs to publish services with 
 
 ## Release History
 
+* 1.0.1 Minor project tweaks
 * 1.0.0 First stable release
 * 0.1.0 Initial release
