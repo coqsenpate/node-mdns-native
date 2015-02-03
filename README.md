@@ -17,7 +17,7 @@ A node MDNS module that uses system installed programs to publish services with 
 
 
 <!--- publish(type, domain, port) -->
-	publish('_coqs-server', 'local', '9000');
+	publish('_myService', 'local', 9000);
 ```
 
 ## Tests
