@@ -1,6 +1,6 @@
 {
   "name": "mdns-native",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A node MDNS module that uses system installed programs to publish services.",
   "main": "mdns-native.js",
   "scripts": {
