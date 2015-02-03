@@ -1,7 +1,7 @@
 mdns-native
 =========
 
-A node MDNS module that uses system installed programs to publish services.
+A node MDNS module that uses system installed programs to publish services with Node.js.
 
 ## Installation
 
@@ -28,4 +28,5 @@ A node MDNS module that uses system installed programs to publish services.
 
 ## Release History
 
+* 1.0.0 First stable release
 * 0.1.0 Initial release
